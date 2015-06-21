@@ -1,0 +1,14 @@
+body {
+    padding: 15px;
+}
+
+h1 {
+    text-align: center;
+    margin-left: 0px;
+}
+
+h1 span, section h3 {
+    display: none;
+}
+
+#page-wrap:after { content: "Smartphone Layout"; }
