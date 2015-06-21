@@ -35,3 +35,7 @@ footer {
     font-size: 13px;
     text-align: center;
 }
+
+.footer-link {
+    margin-right: 7px;
+}
