@@ -3,15 +3,18 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-    res.render('index', { title: 'Quiz' });
+// GET home page
+router.get( '/', function( req, res ) {
+    res.render( 'index', { title: 'Quiz' } );
 });
 
-/* GET author page. */
-router.get('/author', function(req, res) {
-    res.render('author');
+// GET author page
+router.get( '/author', function( req, res ) {
+    res.render( 'author' );
 });
+
+// GET Autoload de comandos con :quizId
+router.param( 'quizId', quizController.load );
 
 // definicion de rutas de /quizes
 router.get( '/quizes',                      quizController.index );
