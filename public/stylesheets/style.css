@@ -28,7 +28,7 @@ section div {
 }
 
 section div p {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 footer {
@@ -41,5 +41,6 @@ footer {
 }
 
 table {
-    margin-top: 5px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }

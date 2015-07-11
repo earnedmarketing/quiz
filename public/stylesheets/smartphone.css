@@ -11,4 +11,8 @@ h1 span, section h3 {
     display: none;
 }
 
+.rem {
+    display: none;
+}
+
 #page-wrap:after { content: "Smartphone Layout"; }
