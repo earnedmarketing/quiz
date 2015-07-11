@@ -12,7 +12,10 @@ exports.load = function( req, res, next, quizId ) {
 
 // GET /quizes
 exports.index = function( req, res ) {
-    models.Quiz.findAll().then( function(quizes) {
+    var searchPattern = req.query.search ? "%" + req.query.search.replace( / /g, "%" ) + "%" : "%";
+    models.Quiz.findAll( { where: [ "pregunta like ?", searchPattern ] } )
+    .then( function(quizes) {
+        quizes.searchQuery = ( req.query.search || "Buscar preguntas" );
         res.render( 'quizes/index', { quizes: quizes } );
     })
     .catch( function( error ) { next( error ); } )
