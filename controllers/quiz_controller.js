@@ -19,7 +19,7 @@ exports.index = function( req, res ) {
         quizes.searchQuery = ( req.query.search || "Buscar preguntas" );
         res.render( 'quizes/index', { quizes: quizes, errors: [] } );
     })
-    .catch( function( error ) { next( error ); } )
+    .catch( function( error ) { next( error ); } );
 };
 
 // GET /quizes/:id
@@ -76,4 +76,11 @@ exports.update = function( req, res ) {
             .then( function() { res.redirect( '/quizes' ) } );
         }
     });
+};
+
+// DELETE /quizes/:id
+exports.destroy = function( req, res ) {
+    req.quiz.destroy().then( function() {
+        res.redirect( '/quizes' );
+    }).catch( function( error ) { next( error ) } );
 };
