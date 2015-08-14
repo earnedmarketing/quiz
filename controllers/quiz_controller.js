@@ -14,7 +14,7 @@ exports.load = function( req, res, next, quizId ) {
 // GET /quizes
 exports.index = function( req, res ) {
     var searchPattern = req.query.search ? "%" + req.query.search.replace( / /g, "%" ) + "%" : "%";
-    models.Quiz.findAll( { where: [ "pregunta like ?", searchPattern ] } )
+    models.Quiz.findAll( { where: [ "pregunta like ?", searchPattern ], order: [ [ "pregunta", "ASC" ] ] } )
     .then( function( quizes ) {
         quizes.searchQuery = ( req.query.search || "Buscar preguntas" );
         res.render( 'quizes/index', { quizes: quizes, errors: [] } );
@@ -39,7 +39,7 @@ exports.answer = function( req, res ) {
 // GET /quizes/new
 exports.new = function( req, res ) {
     var quiz = models.Quiz.build(
-        { pregunta: "Pregunta", respuesta: "Respuesta" }
+        { tema: "otro", pregunta: "Pregunta", respuesta: "Respuesta" }
     );
     res.render( 'quizes/new', { quiz: quiz, errors: [] } );
 };
@@ -51,7 +51,7 @@ exports.create = function( req, res ) {
         if ( err ) {
             res.render( 'quizes/new', { quiz: quiz, errors: err.errors } );
         } else {
-            quiz.save( { fields: [ "pregunta", "respuesta" ] } )
+            quiz.save( { fields: [ "tema", "pregunta", "respuesta" ] } )
             .then( function() { res.redirect( '/quizes' ) } );
         }
     });
@@ -65,6 +65,7 @@ exports.edit = function( req, res ) {
 
 // PUT /quizes/:id
 exports.update = function( req, res ) {
+    req.quiz.tema = req.body.quiz.tema;
     req.quiz.pregunta = req.body.quiz.pregunta;
     req.quiz.respuesta = req.body.quiz.respuesta;
 
@@ -72,7 +73,7 @@ exports.update = function( req, res ) {
         if ( err ) {
             res.render( 'quizes/edit', { quiz: req.quiz, errors: err.errors } );
         } else {
-            req.quiz.save( { fields: [ "pregunta", "respuesta" ] } )
+            req.quiz.save( { fields: [ "tema", "pregunta", "respuesta" ] } )
             .then( function() { res.redirect( '/quizes' ) } );
         }
     });
