@@ -3,6 +3,7 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
+var sessionController = require('../controllers/session_controller');
 
 // GET home page
 router.get( '/', function( req, res ) {
@@ -16,6 +17,11 @@ router.get( '/author', function( req, res ) {
 
 // GET Autoload de comandos con :quizId
 router.param( 'quizId', quizController.load );
+
+// definicion de rutas de session
+router.get(     '/login',       sessionController.new );
+router.post(    '/login',       sessionController.create );
+router.get(     '/logout',      sessionController.destroy );
 
 // definicion de rutas de /quizes
 router.get(     '/quizes',                         quizController.index );

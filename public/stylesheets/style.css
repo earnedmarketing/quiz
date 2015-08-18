@@ -22,6 +22,10 @@ h1, nav span {
     margin-left: 10px;
 }
 
+.authentication {
+    float: right;
+}
+
 .errorMessages {
     color: #f61;
     font-size: 12px;
