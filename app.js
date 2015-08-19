@@ -35,6 +35,14 @@ app.use( function( req, res, next ) {
         req.session.redir = req.path;
     }
 
+    // destruir la session si han transcurido mas de 2 minutos
+    var requestTime = ( new Date() ).getTime();
+    console.log(requestTime - req.session.lastRequest);
+    if ( requestTime - req.session.lastRequest > 120000 ) { // 2 minutes desde el ultimo request
+        delete req.session.user;
+    }
+    req.session.lastRequest = requestTime;
+
     // hacer visible req.session en las vistas
     res.locals.session = req.session;
     next();
